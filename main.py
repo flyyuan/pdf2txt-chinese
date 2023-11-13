@@ -8,34 +8,33 @@ def get_num_pages(pdf_path):
     reader = PdfReader(pdf_path)
     return len(reader.pages)
 
-def process_page(pdf_path, page_number):
-    images = convert_from_path(pdf_path, dpi=300, first_page=page_number, last_page=page_number)
-    image = images[0]
-    gray_image = ImageOps.grayscale(image)
-    text = pytesseract.image_to_string(gray_image, lang='chi_sim+eng')
-    print(text)
+def process_pages(pdf_path, start_page, end_page):
+    images = convert_from_path(pdf_path, dpi=250, first_page=start_page, last_page=end_page)
+    text = ""
+
+    for image in images:
+        gray_image = ImageOps.grayscale(image)
+        text += pytesseract.image_to_string(gray_image, lang='chi_sim+eng') + "\n"
+    print(text)    
     return text
 
-def extract_text_from_pdf(pdf_path):
-    num_pages = get_num_pages(pdf_path)
+def extract_text_from_pdf(pdf_path, num_pages, batch_size=5):
     all_text = ""
+    with ThreadPoolExecutor(max_workers=8) as executor:  # Adjust max_workers based on your CPU
+        futures = []
+        for start_page in range(1, num_pages + 1, batch_size):
+            end_page = min(start_page + batch_size - 1, num_pages)
+            futures.append(executor.submit(process_pages, pdf_path, start_page, end_page))
 
-    with ThreadPoolExecutor() as executor:
-        # Process each page in parallel
-        results = executor.map(lambda page: process_page(pdf_path, page), range(1, num_pages + 1))
-
-    for result in results:
-        all_text += result + "\n"
+        for future in futures:
+            all_text += future.result()
 
     return all_text
 
-# Specify the path to your PDF file
 pdf_path = 'a.pdf'  # Replace with your PDF file path
+num_pages = get_num_pages(pdf_path)
+extracted_text = extract_text_from_pdf(pdf_path, num_pages)
 
-# Extract text from all pages
-extracted_text = extract_text_from_pdf(pdf_path)
-
-# Save the extracted text to a single TXT file
 with open('extracted_text.txt', 'w', encoding='utf-8') as file:
     file.write(extracted_text)
 
