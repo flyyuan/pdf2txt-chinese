@@ -1,6 +1,9 @@
 # pdf2txt-chinese
 
-colab:
+colab-gpu:
+https://colab.research.google.com/gist/flyyuan/a8e38721cf2634e9f85591426313babf/pdf2txt-gpu.ipynb
+
+colab-cpu:
 https://colab.research.google.com/gist/flyyuan/f0a011b7a4ec03ba3905ac5bf427c1dd/pdf2txt.ipynb
 
 ## 中文
