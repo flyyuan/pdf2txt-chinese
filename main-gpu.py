@@ -41,7 +41,7 @@ def extract_text_from_pdf(pdf_path, num_pages, batch_size=5):
     all_text = "".join(all_text_pages[i] for i in sorted(all_text_pages))
     return all_text
 
-pdf_path = '/content/drive/MyDrive/信息技术导论_14190358.pdf'  # Replace with your PDF file path
+pdf_path = 'a.pdf'  # Replace with your PDF file path
 num_pages = get_num_pages(pdf_path)
 extracted_text = extract_text_from_pdf(pdf_path, num_pages)
 
