@@ -15,13 +15,14 @@ https://colab.research.google.com/gist/flyyuan/f0a011b7a4ec03ba3905ac5bf427c1dd/
 - Pillow（PIL Fork）
 - pytesseract
 - tqdm（用于进度条）
+- psutil
 - Tesseract OCR
 
 ### 安装说明
 1. **Python**：确保系统已安装Python。如果没有，请从[python.org](https://www.python.org/)下载并安装。
 2. **库安装**：通过以下命令安装所需的Python库：
    ```bash
-   pip install PyPDF2 pdf2image Pillow pytesseract tqdm
+   pip install PyPDF2 pdf2image Pillow pytesseract tqdm psutil
    ```
 3. **Tesseract OCR**：使用以下命令安装Tesseract OCR及其依赖项，包括英文和中文的语言支持：
    ```bash
@@ -47,13 +48,14 @@ https://colab.research.google.com/gist/flyyuan/f0a011b7a4ec03ba3905ac5bf427c1dd/
 - Pillow (PIL Fork)
 - pytesseract
 - tqdm (for progress bar)
+- psutil
 - Tesseract OCR
 
 ### Installation
 1. **Python**: Ensure Python is installed on your system. If not, download and install it from [python.org](https://www.python.org/).
 2. **Libraries**: Install the required Python libraries by running:
    ```bash
-   pip install PyPDF2 pdf2image Pillow pytesseract tqdm
+   pip install PyPDF2 pdf2image Pillow pytesseract tqdm psutil
    ```
 3. **Tesseract OCR**: Install Tesseract OCR and its dependencies, including language support for English and Chinese, with these commands:
    ```bash
