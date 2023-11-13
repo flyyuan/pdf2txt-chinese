@@ -1,5 +1,8 @@
 # pdf2txt-chinese
 
+colab:
+https://colab.research.google.com/drive/1ejSaK_-Y-_bI1IkVZbHDNGKJ79p30Xzm?usp=sharing
+
 ## 中文
 
 ### 用途说明
