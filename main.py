@@ -5,13 +5,14 @@ from PyPDF2 import PdfReader
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 import os
+import psutil
 
 def get_num_pages(pdf_path):
     reader = PdfReader(pdf_path)
     return len(reader.pages)
 
 def process_pages(pdf_path, start_page, end_page):
-    images = convert_from_path(pdf_path, dpi=250, first_page=start_page, last_page=end_page)
+    images = convert_from_path(pdf_path, dpi=300, first_page=start_page, last_page=end_page)
     text_pages = {}
 
     for i, image in enumerate(images, start=start_page):
@@ -22,9 +23,13 @@ def process_pages(pdf_path, start_page, end_page):
 
     return text_pages
 
-def extract_text_from_pdf(pdf_path, num_pages, batch_size=5):
+def extract_text_from_pdf(pdf_path, num_pages):
     all_text_pages = {}
-    max_workers = os.cpu_count() or 4  # Use the number of CPU cores or default to 4
+    max_workers = os.cpu_count() or 4
+    memory = psutil.virtual_memory()
+
+    # Adjust batch_size based on available memory
+    batch_size = max(1, int(memory.available / (500 * 1024 * 1024)))  # 500MB per batch
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = []
@@ -35,7 +40,7 @@ def extract_text_from_pdf(pdf_path, num_pages, batch_size=5):
         for future in tqdm(as_completed(futures), total=len(futures), desc="Processing Pages"):
             all_text_pages.update(future.result())
 
-    # Sort the pages and concatenate the text
+    # Sort and concatenate the text
     all_text = "".join(all_text_pages[i] for i in sorted(all_text_pages))
 
     return all_text
