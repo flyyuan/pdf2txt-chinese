@@ -1,7 +1,7 @@
 # pdf2txt-chinese
 
 colab:
-https://colab.research.google.com/drive/1ejSaK_-Y-_bI1IkVZbHDNGKJ79p30Xzm?usp=sharing
+[https://colab.research.google.com/drive/1ejSaK_-Y-_bI1IkVZbHDNGKJ79p30Xzm?usp=sharing](https://colab.research.google.com/gist/flyyuan/19d8747310b61a9818aec53c25631aef/pdf2txt.ipynb)
 
 ## 中文
 
